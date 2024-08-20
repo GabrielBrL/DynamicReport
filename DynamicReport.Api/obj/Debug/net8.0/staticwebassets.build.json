@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "TKGlziiRUf5978lPO8+/MzVw/kaxthGU6vALveB69OE=",
+  "Source": "DynamicReport.Api",
+  "BasePath": "_content/DynamicReport.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
