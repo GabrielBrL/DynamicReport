@@ -1,0 +1,36 @@
+ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li a {
+    height: 4rem;
+    width: 15rem;
+    border: 1px solid whitesmoke;
+    border-radius: 1rem;
+    margin: 0.5rem;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    overflow: hidden;
+    color: rgb(0, 80, 185);
+    font-weight: 500;
+    transition: .5s;
+}
+
+ul li a:hover {
+    background-color: rgb(0, 80, 185);
+    color: white;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.content {
+    padding: .5rem 1rem;
+    position: relative;
+    right: 0;
+}
