@@ -5,7 +5,7 @@ div {
 }
 
 div a {
-    background-color: #c3c2c2;
+    background-color: rgb(0, 80, 185);
     padding: .3rem 1rem;
     margin: .2rem .15rem;
     border-radius: 10rem;

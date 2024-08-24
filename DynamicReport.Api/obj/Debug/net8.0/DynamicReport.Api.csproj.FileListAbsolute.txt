@@ -33,3 +33,4 @@ C:\Users\gabri\repos\DynamicReport\DynamicReport.Api\obj\Debug\net8.0\DynamicRep
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Api\obj\Debug\net8.0\ref\DynamicReport.Api.dll
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Api\bin\Debug\net8.0\DynamicReport.Shared.dll
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Api\bin\Debug\net8.0\DynamicReport.Shared.pdb
+C:\Users\gabri\repos\DynamicReport\DynamicReport.Api\obj\Debug\net8.0\DynamicReport.Api.sourcelink.json

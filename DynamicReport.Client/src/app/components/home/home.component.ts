@@ -4,7 +4,6 @@ import { FormTypes } from '../../shared/models/formTypes';
 import { SearchComponent } from '../search/search.component';
 import { ActivatedRoute } from '@angular/router';
 import { TagsComponent } from '../tags/tags.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.router.params.subscribe(params => {
       this.searchItem = params['searchItem'];
       if (params['searchItem']) {
-        this.fs.getFormByName(params['searchItem']).subscribe(resp => {          
+        this.fs.getFormByName(params['searchItem']).subscribe(resp => {
           this.formTypes = resp;
         });
         return this.formTypes;

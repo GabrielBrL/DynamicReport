@@ -1,0 +1,95 @@
+p {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 5rem;
+}
+
+.title {
+    margin: 2rem 0 2rem 0;
+}
+
+.content {
+    width: 100%;
+}
+
+.field {
+    padding: .5rem 0 .5rem 0;
+}
+
+.input-title {
+    margin: .5rem 0 .5rem 0;
+    font-weight: bold;
+}
+
+.input-value {
+    width: 100%;
+}
+
+.input-radio {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.input-radio-values {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.select {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+
+.container-add-component {
+    position: absolute;
+    right: 2rem;
+    bottom: 5rem;
+}
+
+.button-add-component {
+    display: flex;
+    border: none;
+    background-color: transparent;
+    border-radius: 100%;
+    width: 3rem;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-add-component {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.list-options-fields {
+    display: flex;
+    justify-content: space-between;
+    gap: .5rem;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.hidden-list-options-fields {
+    display: none;
+}
+
+.buttons-options-components {
+    flex-direction: row;
+    display: flex;
+    justify-content: end;
+}
+
+.buttons-options-components p {
+    padding: .5rem .5rem 0 0;
+}

@@ -9,3 +9,4 @@ C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\Dynamic
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\refint\DynamicReport.Shared.dll
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.pdb
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\ref\DynamicReport.Shared.dll
+C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.sourcelink.json
