@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
     "@popperjs/core": "^2.11.8",
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^23.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

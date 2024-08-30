@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container-form">
     <div class="title">
         <h5>{{form?.name}}</h5>
     </div>
     <div class="content" id="listComponents">
-        <div id="line1">
+        <div id="line-text1">
             <div class="field">
                 <p class="input-title">
                     Texto
@@ -11,7 +11,7 @@
                 <input class="input-value" type="text" />
             </div>
         </div>
-        <div id="line2">
+        <div id="line-radio2">
             <div class="field">
                 <p class="input-title">
                     Escolha
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div id="line3">
+        <div id="line-checkbox3">
             <div class="field">
                 <p class="input-title">
                     Escolhas
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div id="line4">
+        <div id="line-select4">
             <div class="field">
                 <p class="input-title">
                     Seleção
@@ -72,7 +72,7 @@
     </div>
 </div>
 <div class="container-add-component">
-    <div id="listButtonComponents" class="list-options-fields">
+    <div id="listButtonComponents" class="list-options-fields hidden-list-options-fields">
         <div class="buttons-options-components">
             <p>Campo de texto</p>
             <button class="button-add-component" (click)="appendComponentText()">
@@ -81,26 +81,31 @@
         </div>
         <div class="buttons-options-components">
             <p>Campo de seleção única</p>
-            <button class="button-add-component">
+            <button class="button-add-component" (click)="appendComponentRadio()">
                 <img class="img-add-component" src="/assets/radioIcon.png" alt="Adicionar" />
             </button>
         </div>
         <div class="buttons-options-components">
             <p>Campo de seleção multipla</p>
-            <button class="button-add-component">
+            <button class="button-add-component" (click)="appendComponentCheckBox()">
                 <img class="img-add-component" src="/assets/checkBoxIcon.png" alt="Adicionar" />
             </button>
         </div>
         <div class="buttons-options-components">
             <p>Campo de escolha</p>
-            <button class="button-add-component">
+            <button class="button-add-component" (click)="appendComponentSelect()">
                 <img class="img-add-component" src="/assets/selectIcon.png" alt="Adicionar" />
             </button>
         </div>
     </div>
     <div style="display: flex; justify-content: end;">
         <button class="button-add-component" (click)="showOptionsOfComponents()">
-            <img class="img-add-component" src="/assets/addComponentIcon.png" alt="Adicionar" />
+            <img class="img-add-component" src="/assets/addComponentIcon.png" alt="Adicionar" title="Abrir comandos" />
+        </button>
+    </div>
+    <div style="display: flex; justify-content: end;">
+        <button class="button-add-component" (click)="exportPdf()">
+            <img class="img-add-component" src="/assets/pdfIcon.png" alt="Adicionar" title="Export para PDF" />
         </button>
     </div>
 </div>

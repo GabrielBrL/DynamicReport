@@ -2,13 +2,14 @@ p {
     margin: 0;
 }
 
-.container {
+.container-form {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 0;
     margin-bottom: 5rem;
+    width: 100%;
 }
 
 .title {
@@ -16,7 +17,7 @@ p {
 }
 
 .content {
-    width: 100%;
+    width: calc(100% - 500px);
 }
 
 .field {
@@ -41,7 +42,7 @@ p {
 .input-radio-values {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: .5rem;
 }
 
 .select {
@@ -51,15 +52,23 @@ p {
 }
 
 .container-add-component {
-    position: absolute;
+    position: fixed;
     right: 2rem;
-    bottom: 5rem;
+    bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: .5rem;
+    flex-direction: column;
+}
+
+.container-add-component > div:last-child {    
+    margin-top: 1rem;
 }
 
 .button-add-component {
     display: flex;
     border: none;
-    background-color: transparent;
+    background-color: white;
     border-radius: 100%;
     width: 3rem;
     height: 3rem;
@@ -77,7 +86,6 @@ p {
     justify-content: space-between;
     gap: .5rem;
     flex-direction: column;
-    margin-bottom: 1rem;
 }
 
 .hidden-list-options-fields {
@@ -92,4 +100,6 @@ p {
 
 .buttons-options-components p {
     padding: .5rem .5rem 0 0;
+    height: 2rem;
+    background-color: white;
 }
