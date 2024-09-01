@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PDFDocument, rgb } from 'pdf-lib';
+import { BlendMode, PDFDocument, rgb } from 'pdf-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -19,43 +19,121 @@ export class PdfService {
       // Adicionar um título
       page.drawText('Formulário Dinâmico', {
         x: 200,
-        y: 750,
+        y: 800,
         size: 18,
         font: font,
         color: rgb(0, 0, 0),
       });
 
-      let startY = 700;
-      const fieldSpacing = 50;
+      let startY = 730;
+      const fieldSpacing = 40;
 
       // Adiciona texto à página
       Array.from(html.children).forEach((item, index) => {
-        const yPosition = startY - index * fieldSpacing;
+        const yPosition = startY - (fieldSpacing * index);
         if (item.id.includes("text")) {
+          page.drawText(item.childNodes[0].textContent || "",
+            {
+              x: 25,
+              y: yPosition + 25,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0),
+            });
           const textField = form.createTextField(`field-text${index}`);
-          textField.setText('Digite aqui...');
-          textField.addToPage(page, { x: 20, y: yPosition, width: 550, height: 20 });
+          textField.addToPage(page, { x: 25, y: yPosition, width: 545, height: 20 });
         }
         if (item.id.includes("radio")) {
+          page.drawText(item.childNodes[0].childNodes[0].textContent || "",
+            {
+              x: 25,
+              y: yPosition + 20,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0)
+            });
+          // item.childNodes[0].childNodes[1].childNodes.forEach(p => {
+          //   var label = p.childNodes[0].textContent;
+
+          // });
+          var label1 = item.childNodes[0].childNodes[1].childNodes[0].childNodes[0].textContent;
+          var label2 = item.childNodes[0].childNodes[1].childNodes[1].childNodes[0].textContent;
+          page.drawText(label2 || "",
+            {
+              x: 25,
+              y: yPosition - 20,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0),
+            });
+          page.drawText(label1 || "",
+            {
+              x: 25,
+              y: yPosition,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0),
+            });
           const radioField = form.createRadioGroup(`field-radio${index}`);
-          radioField.addOptionToPage("Opt1", page, { x: 20, y: yPosition - 25, width: 15, height: 15 });
-          radioField.addOptionToPage("Opt2", page, { x: 20, y: yPosition, width: 15, height: 15 });
-          startY -= 5;
+          radioField.addOptionToPage("Opt1", page, { x: 25 + (7 * (label2?.length || 0)), y: yPosition - 23, width: 15, height: 15 });
+          radioField.addOptionToPage("Opt2", page, { x: 25 + (7 * (label1?.length || 0)), y: yPosition - 3, width: 15, height: 15 });
+          startY -= 25;
         }
         if (item.id.includes("checkbox")) {
+          page.drawText(item.childNodes[0].childNodes[0].textContent || "",
+            {
+              x: 25,
+              y: yPosition + 20,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0),
+            });
+          let qtdSpacing = 0;
           for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
+            var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
+            page.drawText(label || "",
+              {
+                x: 25,
+                y: yPosition - (20 * i),
+                size: 12,
+                font: font,
+                color: rgb(0, 0, 0),
+              });
             var checkField = form.createCheckBox(`field-check-box${index}${i}`);
-            checkField.addToPage(page, { x: 20, y: yPosition - (20 * i), width: 15, height: 15 });
-            startY -= 5;
+            qtdSpacing = (20 * i) + 5;
+            checkField.addToPage(page, { x: 25 + (7 * (label?.length || 0)), y: yPosition - (20 * i), width: 15, height: 15 });
           }
+          startY -= qtdSpacing;
+        }
+        if (item.id.includes("select")) {
+          page.drawText(item.childNodes[0].childNodes[0].textContent || "",
+            {
+              x: 25,
+              y: yPosition + 20,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0),
+            });
+          page.drawText(item.childNodes[0].childNodes[1].childNodes[0].textContent || "",
+            {
+              x: 25,
+              y: yPosition,
+              size: 12,
+              font: font,
+              color: rgb(0, 0, 0),
+            });
+          var selectField = form.createDropdown(`field-select${index}`);
+          var options: string[] = [];
+          item.childNodes[0].childNodes[1].childNodes[1].childNodes.forEach(y => {
+            if (y.textContent)
+              options.push(y.textContent);
+          });
+          selectField.setOptions(options);
+          selectField.addToPage(page, { x: 25, y: yPosition - 30, width: 545, height: 20 })
+          startY -= 30;
         }
       });
-
-      // Adiciona um campo de texto editável
     }
-    // Adiciona uma página ao documento
-
-    // Serializa o documento PDF para um array de bytes
     const pdfBytes = await pdfDoc.save();
 
     return pdfBytes;

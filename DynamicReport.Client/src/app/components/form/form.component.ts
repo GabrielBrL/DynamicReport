@@ -38,9 +38,13 @@ export class FormComponent {
     var input = document.createElement("input");
     input.type = "text";
     input.classList.add("input-value");
+    // var inputLabelEdit = document.createElement("input");
+    // inputLabelEdit.type = "text";
+    // inputLabelEdit.classList.add("input-value");
     var p = document.createElement("p");
     p.classList.add("input-title");
     p.textContent = "Texto";
+    p.addEventListener("dblclick", this.changeName);
     var divContent = document.createElement("div");
     divContent.classList.add("field");
     var divMainContent = document.createElement("div");
@@ -48,6 +52,7 @@ export class FormComponent {
 
     divContent.appendChild(p);
     divContent.appendChild(input);
+    //divContent.appendChild(inputLabelEdit);
     divMainContent.appendChild(divContent);
 
     var mainListComponents = document.getElementById("listComponents");
@@ -223,19 +228,9 @@ export class FormComponent {
     // Abre o PDF em uma nova aba do navegador
     window.open(url);
   }
+
+  changeName() {
+    console.log("click");
+  }
 }
 
-// <div class="field">
-//     <p class="input-title">
-//         Seleção
-//     </p>
-//     <div class="select">
-//         <p>Opções</p>
-//         <select>
-//             <option>Opção 1</option>
-//             <option>Opção 2</option>
-//             <option>Opção 3</option>
-//             <option>Opção 4</option>
-//         </select>
-//     </div>
-// </div>
