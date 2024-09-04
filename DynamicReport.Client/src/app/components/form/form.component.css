@@ -29,6 +29,12 @@ p {
     font-weight: bold;
 }
 
+.input-label {
+    margin: .5rem 0 .5rem 0;
+    font-weight: bold;
+    width: 100%;
+}
+
 .input-value {
     width: 100%;
 }
