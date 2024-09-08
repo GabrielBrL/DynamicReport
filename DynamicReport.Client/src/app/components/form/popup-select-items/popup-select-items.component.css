@@ -1,0 +1,71 @@
+.content-popup-selecteditems {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 64px);
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(211, 211, 211, 0.8);
+    z-index: 1000;
+}
+
+.content-popup-selecteditems-child {
+    background-color: white;
+    width: 25rem;
+    height: 15rem;
+    padding: .5rem;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+}
+
+.hide-content-popup-selecteditems {
+    display: none;
+}
+
+.input-new-item {
+    border-radius: 10px;
+    border: none;
+    height: 2rem;
+    width: 100%;
+    background-color: #f1f1f1;
+    padding: 1.2rem;
+    font-weight: 500;
+    outline: none;
+}
+
+.btn-actions {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.content-popup-selecteditems-child p {
+    font-size: 1rem;
+}
+
+.input-items {
+    max-height: 8rem;
+    overflow-y: auto;
+}
+
+.input-items div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+}
+
+.content-popup-selecteditems-child button {
+    border: 1px solid whitesmoke;
+    border-radius: 1rem;
+    color: black;
+    font-weight: 500;
+    padding: 0 1rem;
+    transition: .5s;
+}
+
+.content-popup-selecteditems-child button:hover {
+    background-color: rgb(0, 80, 185);
+    color: white;
+    cursor: pointer;
+    transition: .5s;
+}

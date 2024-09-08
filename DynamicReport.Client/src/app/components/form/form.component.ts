@@ -1,13 +1,14 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import { FormTypes } from '../../shared/models/formTypes';
 import { FormtypesService } from '../../services/form/formtypes.service';
 import { ActivatedRoute } from '@angular/router';
 import { PdfService } from '../../utility/form/PdfService';
+import { PopupSelectItemsComponent } from "./popup-select-items/popup-select-items.component";
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [],
+  imports: [PopupSelectItemsComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
   encapsulation: ViewEncapsulation.None
@@ -15,6 +16,8 @@ import { PdfService } from '../../utility/form/PdfService';
 export class FormComponent {
   form: FormTypes | undefined;
   hiddenChooseComponents: boolean = false;
+  classPopupSelecItems: string = "hide-content-popup-selecteditems";
+  selectToAddOption: HTMLSelectElement | undefined;
   constructor(private fs: FormtypesService, private route: ActivatedRoute, private pdfUtil: PdfService) {
     route.params.subscribe(param => {
       fs.getFormById(param["id"]).subscribe(resp => {
@@ -198,10 +201,7 @@ export class FormComponent {
 
   appendComponentSelect() {
     var select = document.createElement("select");
-    var option = document.createElement("option");
-    option.textContent = "Opção 1";
-
-    select.append(option);
+    select.style.width = "15rem";
 
     var p = document.createElement("p");
     p.textContent = "Opções";
@@ -210,7 +210,21 @@ export class FormComponent {
     divContent.classList.add("select");
 
     divContent.appendChild(p);
-    divContent.appendChild(select);
+
+    var divAddSelect = document.createElement("div");
+    divAddSelect.classList.add("div-add-select-options");
+
+    var buttonAddOptionSelect = document.createElement("button");
+    buttonAddOptionSelect.textContent = "Adicionar";
+    buttonAddOptionSelect.classList.add("button-add-select-option");
+    buttonAddOptionSelect.addEventListener("click", (e) => {
+      this.AddOptionOnSelect(select);
+    });
+
+    divAddSelect.appendChild(select);
+    divAddSelect.appendChild(buttonAddOptionSelect);
+
+    divContent.appendChild(divAddSelect);
 
     var pTitle = document.createElement("p");
     pTitle.id = `p-label${this.countElementsFromMainList()}`;
@@ -300,6 +314,10 @@ export class FormComponent {
       element.style.display = "";
       this.style.display = "none";
     }
+  }
+  AddOptionOnSelect(select: HTMLSelectElement = document.createElement("select")) {
+    this.classPopupSelecItems = this.classPopupSelecItems === "content-popup-selecteditems" ? "hide-content-popup-selecteditems" : "content-popup-selecteditems";
+    this.selectToAddOption = select;
   }
 }
 

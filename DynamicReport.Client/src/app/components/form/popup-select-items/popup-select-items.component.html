@@ -1,0 +1,22 @@
+<div class={{classContent}}>
+    <div class="content-popup-selecteditems-child">
+        <div>
+            <div style="text-align: center;">
+                <h3>Adicionar item</h3>
+            </div>
+            <div class="input-items">
+                <div id="add-input-items">
+                    <p>Item:</p>
+                    <input type="text" class="input-new-item">
+                </div>
+                <div style="margin-top: 1rem;">
+                    <button (click)="addInput()">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="btn-actions">
+            <button (click)="saveOptionSelect()">Salvar</button>
+            <button (click)="closePopup()">Cancelar</button>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ ul li a {
     align-items: end;
     flex-direction: column;
     overflow: hidden;
-    color: rgb(0, 80, 185);
+    color: black;
     font-weight: 500;
     transition: .5s;
 }

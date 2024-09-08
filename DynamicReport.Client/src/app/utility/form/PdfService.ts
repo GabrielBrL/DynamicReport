@@ -63,8 +63,9 @@ export class PdfService {
             });
           var selectField = form.createDropdown(`field-select${index}`);
           var options: string[] = [];
-          item.childNodes[0].childNodes[1].childNodes[1].childNodes.forEach(y => {
-            if (y.textContent)
+          item.childNodes[0].childNodes[1].childNodes[1].childNodes[0].childNodes.forEach(y => {
+            console.log(y);
+            if (y.textContent && y.nodeName != "BUTTON")
               options.push(y.textContent);
           });
           selectField.setOptions(options);

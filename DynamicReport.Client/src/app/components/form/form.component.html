@@ -1,66 +1,10 @@
+<app-popup-select-items [classContent]="classPopupSelecItems" [select]="selectToAddOption" (esconderFilho)="AddOptionOnSelect()"></app-popup-select-items>
+
 <div class="container-form">
     <div class="title">
         <h5>{{form?.name}}</h5>
     </div>
     <div class="content" id="listComponents">
-        <div id="line-text1">
-            <div class="field">
-                <p class="input-title">Texto</p>
-                <input class="input-value" type="text" />
-            </div>
-        </div>
-        <div id="line-radio2">
-            <div class="field">
-                <p class="input-title">Escolha</p>
-                <div class="input-radio">
-                    <div class="input-radio-values">
-                        <p>Masculino</p>
-                        <input type="radio" name="input-radio-unique" />
-                    </div>
-                    <div class="input-radio-values">
-                        <p>Feminino</p>
-                        <input type="radio" name="input-radio-unique" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="line-checkbox3">
-            <div class="field">
-                <p class="input-title">Escolhas</p>
-                <div class="input-radio">
-                    <div class="input-radio-values">
-                        <p>Escolha 1</p>
-                        <input type="checkbox" name="input-checks" />
-                    </div>
-                    <div class="input-radio-values">
-                        <p>Escolha 2</p>
-                        <input type="checkbox" name="input-checks" />
-                    </div>
-                    <div class="input-radio-values">
-                        <p>Escolha 3</p>
-                        <input type="checkbox" name="input-checks" />
-                    </div>
-                    <div class="input-radio-values">
-                        <p>Escolha 4</p>
-                        <input type="checkbox" name="input-checks" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="line-select4">
-            <div class="field">
-                <p class="input-title">Seleção</p>
-                <div class="select">
-                    <p>Opções</p>
-                    <select>
-                        <option>Opção 1</option>
-                        <option>Opção 2</option>
-                        <option>Opção 3</option>
-                        <option>Opção 4</option>
-                    </select>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="container-add-component">
