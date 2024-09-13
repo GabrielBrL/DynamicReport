@@ -1,3 +1,4 @@
+using DynamicReport.Api.Data;
 using DynamicReport.Api.IServices;
 using DynamicReport.Shared;
 
@@ -5,31 +6,21 @@ namespace DynamicReport.Api.Services;
 
 public class FormService : IFormService
 {
+    private readonly DataContext _context;
+
+    public FormService(DataContext context)
+    {
+        _context = context;
+    }
+
     public List<Form> GetAllForms()
     {
-        return new List<Form>
-        {
-            new Form{
-                Id = 1,
-                Name = "Formulário 1",
-                Tag = "Serviços"
-            },
-            new Form{
-                Id = 2,
-                Name = "Formulário 2",
-                Tag = "Serviços"
-            },
-            new Form{
-                Id = 3,
-                Name = "Formulário 3",
-                Tag = "Serviços"
-            },
-        };
+        return _context.Forms.ToList();
     }
 
     public Form? GetFormById(int id)
     {
-        return GetAllForms().FirstOrDefault(x => x.Id == id);
+        return GetAllForms().FirstOrDefault(x => x.ID == id);
     }
 
     public List<Form> GetFormByName(string name)
@@ -42,18 +33,35 @@ public class FormService : IFormService
         return GetAllForms().Where(x => x.Tag == name).ToList();
     }
 
-    public Task CreateForm(Form form)
+    public async Task<Form> CreateForm(Form form)
     {
-        throw new NotImplementedException();
+        _context.Forms.Add(form);
+        await _context.SaveChangesAsync();
+        return form;
     }
 
-    public Task UpdateForm(Form form)
+    public async Task<Form?> UpdateForm(Form form)
     {
-        throw new NotImplementedException();
+        var formDb = _context.Forms.FirstOrDefault(x => form.ID == x.ID);
+        if (formDb != null)
+        {
+            formDb.Name = form.Name;
+            formDb.Tag = form.Tag;
+            _context.Forms.Update(formDb);
+            await _context.SaveChangesAsync();
+        }
+        return formDb;
     }
 
-    public Task DeleteForm(int id)
+    public async Task<bool> DeleteForm(int id)
     {
-        throw new NotImplementedException();
+        var form = _context.Forms.FirstOrDefault(x => x.ID == id);
+        if (form != null)
+        {
+            _context.Forms.Remove(form);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        return false;
     }
 }

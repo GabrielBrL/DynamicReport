@@ -14,7 +14,7 @@ ul li a {
     border-radius: 1rem;
     margin: 0.5rem;
     display: flex;
-    align-items: end;
+    align-items: start;
     flex-direction: column;
     overflow: hidden;
     color: black;
@@ -56,4 +56,16 @@ ul li a:hover {
 .button-add-form:hover img {
     width: 110px;
     transition: .5s;
+}
+
+.removeForm {
+    position: absolute;
+}
+
+.removeForm button {    
+    margin: 0.5rem;
+    display: flex;
+    justify-items: center;
+    overflow: hidden;
+    font-weight: 500;
 }

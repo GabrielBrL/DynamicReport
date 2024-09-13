@@ -1,20 +1,28 @@
 <app-search></app-search>
 <app-tags></app-tags>
 <ul>
-    @for(value of formTypes; track value.id){
+    @for(value of formTypes; track value.id)
+    {
     <li>
-        <a href="/form/{{value.id}}">
-            <div class="content">
-                <div class="name">
-                    {{value.name}}
-                </div>
+        <div style="display: flex; flex-direction: row;">
+            <div>
+                <a href="/form/{{value.id}}">
+                    <div class="content">
+                        <div class="name">
+                            {{value.name}}
+                        </div>
+                    </div>
+                </a>
             </div>
-        </a>
+            <div class="removeForm">
+                <button>-</button>
+            </div>
+        </div>
     </li>
     }
 </ul>
 <div class="div-button-add-form">
     <a class="button-add-form" href="/form/create">
-        <img src="/assets/addFormIcon.png" alt="Adicionar"/>
+        <img src="/assets/addFormIcon.png" alt="Adicionar" />
     </a>
 </div>

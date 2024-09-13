@@ -5,8 +5,8 @@ C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\Dynamic
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.AssemblyInfoInputs.cache
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.AssemblyInfo.cs
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.csproj.CoreCompileInputs.cache
+C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.sourcelink.json
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.dll
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\refint\DynamicReport.Shared.dll
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.pdb
 C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\ref\DynamicReport.Shared.dll
-C:\Users\gabri\repos\DynamicReport\DynamicReport.Shared\obj\Debug\net8.0\DynamicReport.Shared.sourcelink.json

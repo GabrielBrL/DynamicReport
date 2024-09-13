@@ -1,4 +1,5 @@
 using DynamicReport.Api.IServices;
+using DynamicReport.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DynamicReport.Api.Controller;
@@ -32,6 +33,12 @@ public class FormController : ControllerBase
     public IActionResult GetFormByName(string name)
     {
         var result = _formService.GetFormByName(name);
+        return Ok(result);
+    }
+    [HttpPost]
+    public async Task<IActionResult> CreateNewForm([FromBody] Form form)
+    {
+        var result = await _formService.CreateForm(form);
         return Ok(result);
     }
     [HttpGet("tag/{name}")]

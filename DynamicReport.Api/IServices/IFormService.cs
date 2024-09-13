@@ -8,7 +8,7 @@ public interface IFormService
     Form? GetFormById(int id);
     List<Form> GetFormByName(string name);
     List<Form> GetFormByTag(string name);
-    Task CreateForm(Form form);
-    Task UpdateForm(Form form);
-    Task DeleteForm(int id);
+    Task<Form> CreateForm(Form form);
+    Task<Form?> UpdateForm(Form form);
+    Task<bool> DeleteForm(int id);
 }
