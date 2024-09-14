@@ -18,6 +18,10 @@ export class HomeComponent implements OnInit {
   constructor(private router: ActivatedRoute, private fs: FormtypesService) { }
 
   ngOnInit(): void {
+    this.cData();
+  }
+
+  private cData() {
     this.router.params.subscribe(params => {
       this.searchItem = params['searchItem'];
       if (params['searchItem']) {
@@ -37,5 +41,15 @@ export class HomeComponent implements OnInit {
       });
       return this.formTypes;
     });
+  }
+
+  removeForm(id: Number) {
+    this.fs.removeForm(id).subscribe(
+      result => {        
+        this.cData();
+      },
+      erro => {
+        console.log(erro);
+      });;
   }
 }

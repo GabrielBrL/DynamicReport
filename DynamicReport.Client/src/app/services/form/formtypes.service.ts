@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormTypes } from '../../shared/models/formTypes';
 import { Tags } from '../../shared/models/tags';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
+import { HandlerErrorService } from '../handler-error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +28,14 @@ export class FormtypesService {
   }
 
   getAllTags(): Observable<Tags[]> {
-    return this.http.get<Tags[]>(`${this.baseAddress}/api/Form/tags`).pipe(map(forms => forms.map(x => new Tags(x.name, x.qtd))));
+    return this.http.get<Tags[]>(`${this.baseAddress}/api/Tag`).pipe(map(forms => forms.map(x => new Tags(x.name, x.qtd))));
   }
 
   getAll(): Observable<FormTypes[]> {
     return this.http.get<FormTypes[]>(`${this.baseAddress}/api/Form/all`).pipe(map(forms => forms.map(x => new FormTypes(x.id, x.name, x.tags))));
+  }
+
+  removeForm(id: Number) {
+    return this.http.delete(`${this.baseAddress}/api/Form/delete/${id}`);
   }
 }

@@ -5,17 +5,17 @@
     {
     <li>
         <div style="display: flex; flex-direction: row;">
-            <div>
-                <a href="/form/{{value.id}}">
-                    <div class="content">
-                        <div class="name">
-                            {{value.name}}
-                        </div>
+            <a href="/form/{{value.id}}">
+                <div class="content">
+                    <div class="name">
+                        {{value.name}}
                     </div>
-                </a>
-            </div>
-            <div class="removeForm">
-                <button>-</button>
+                </div>
+            </a>
+            <div class="div-remove-form">
+                <button class="btn-remove-form" (click)="removeForm(value.id)">
+                    <b>-</b>
+                </button>
             </div>
         </div>
     </li>

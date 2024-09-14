@@ -1,6 +1,6 @@
 export class FormTypes {
     constructor(
-        public id: string,
+        public id: Number,
         public name: string,
         public tags: string,
     ) {

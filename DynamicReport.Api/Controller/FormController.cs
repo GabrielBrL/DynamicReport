@@ -16,6 +16,7 @@ public class FormController : ControllerBase
         _formService = formService;
         _tagService = tagService;
     }
+    #region GET
     [HttpGet("all")]
     public IActionResult GetForms()
     {
@@ -35,23 +36,51 @@ public class FormController : ControllerBase
         var result = _formService.GetFormByName(name);
         return Ok(result);
     }
-    [HttpPost]
-    public async Task<IActionResult> CreateNewForm([FromBody] Form form)
-    {
-        var result = await _formService.CreateForm(form);
-        return Ok(result);
-    }
     [HttpGet("tag/{name}")]
     public IActionResult GetFormByTag(string name)
     {
         var result = _formService.GetFormByTag(name);
         return Ok(result);
     }
+    #endregion
 
-    [HttpGet("tags")]
-    public IActionResult GetTags()
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateNewForm([FromBody] Form form)
     {
-        var result = _tagService.GetTags();
-        return Ok(result);
+        try
+        {
+            var result = await _formService.CreateForm(form);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpPatch("update")]
+    public async Task<IActionResult> UpdateForm([FromBody] Form form)
+    {
+        try
+        {
+            var result = await _formService.UpdateForm(form);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeleteForm(int id)
+    {
+        try
+        {
+            var result = await _formService.DeleteForm(id);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }
