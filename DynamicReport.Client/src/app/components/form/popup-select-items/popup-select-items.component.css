@@ -9,6 +9,10 @@
     z-index: 1000;
 }
 
+.hide-content-popup-selecteditems {
+    display: none;
+}
+
 .content-popup-selecteditems-child {
     background-color: white;
     width: 25rem;
@@ -17,10 +21,6 @@
     justify-content: space-between;
     display: flex;
     flex-direction: column;
-}
-
-.hide-content-popup-selecteditems {
-    display: none;
 }
 
 .input-new-item {

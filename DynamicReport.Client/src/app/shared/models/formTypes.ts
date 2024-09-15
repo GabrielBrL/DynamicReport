@@ -1,8 +1,8 @@
 export class FormTypes {
     constructor(
-        public id: Number,
-        public name: string,
-        public tags: string,
+        public id: Number = 0,
+        public name: string = "",
+        public tags: string = "",
     ) {
     }
 }

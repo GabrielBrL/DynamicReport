@@ -13,6 +13,7 @@ import { ConfirmsaveComponent } from "./confirmsave/confirmsave.component";
   encapsulation: ViewEncapsulation.None
 })
 export class CreateformComponent {
+  classPopupSaveForm: string = "hide-content-popup-saveform";
   constructor(private fs: FormtypesService) {
   }
   ngOnInit() {
@@ -22,10 +23,7 @@ export class CreateformComponent {
     var button = document.createElement("button");
     button.classList.add("button-save-component");
     button.addEventListener("click", (e) => {
-      var form = new FormTypes(0, "teste", "teste");
-      this.fs.createForm(form).subscribe(form => console.log(form), erro => {
-        console.log("Erro " + erro);
-      });
+      this.classPopupSaveForm = "content-popup-saveform";      
     });
 
     button.appendChild(p);
@@ -39,5 +37,8 @@ export class CreateformComponent {
     if (content) {
       content.appendChild(mainDiv);
     }
+  }
+  closePopupSaveForm() {
+    this.classPopupSaveForm = this.classPopupSaveForm == "hide-content-popup-saveform" ? "content-popup-saveform" : "hide-content-popup-saveform";
   }
 }

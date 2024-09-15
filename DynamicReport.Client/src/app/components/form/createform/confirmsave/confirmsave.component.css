@@ -1,0 +1,72 @@
+.content-popup-saveform {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 64px);
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(211, 211, 211, 0.8);
+    z-index: 1000;
+}
+
+.hide-content-popup-saveform {
+    display: none;
+}
+
+.content-popup-saveform-child {
+    background-color: white;
+    width: 25rem;
+    height: 16rem;
+    padding: .5rem;
+    justify-content: space-between;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-actions {
+    top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.content-popup-saveform-child p {
+    font-size: 1rem;
+}
+
+.input-items-saveform {
+    max-height: 20rem;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.content-popup-saveform-child button {
+    border: 1px solid whitesmoke;
+    border-radius: 1rem;
+    color: black;
+    font-weight: 500;
+    padding: 0 1rem;
+    transition: .5s;
+}
+
+.content-popup-saveform-child button:hover {
+    background-color: rgb(0, 80, 185);
+    color: white;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.field-form select {
+    border-radius: 10px;
+    border: none;
+    height: 2.5rem;
+    width: 100%;
+    background-color: #f1f1f1;    
+    font-weight: 500;
+    outline: none;
+    padding-left: 1rem;    
+}

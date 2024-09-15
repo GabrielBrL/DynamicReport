@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DynamicReport.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d03f4021e8ab68be9e35c5ab6577b162aeb83624")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f610b160de8289668567a14b0abd390012ec6f59")]
 [assembly: System.Reflection.AssemblyProductAttribute("DynamicReport.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DynamicReport.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

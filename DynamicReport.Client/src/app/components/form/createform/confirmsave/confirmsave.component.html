@@ -1,1 +1,30 @@
-<p>confirmsave works!</p>
+<div class={{classContent}}>
+    <div class="content-popup-saveform-child">
+        <form [formGroup]="formControl" (ngSubmit)="saveForm()">
+            <div>
+                <div style="text-align: center;">
+                    <h3>Salvar formulário</h3>
+                </div>
+                <div class="input-items-saveform">
+                    <div class="field-form">
+                        <p>Nome:</p>
+                        <input type="text" class="input-new-item" formControlName="name">
+                    </div>
+                    <div class="field-form">
+                        <p>Tag:</p>
+                        <select formControlName="tags">
+                            @for (tag of _tags; track $index)
+                            {
+                            <option [value]="tag.name">{{tag.name}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-actions">
+                <button type="submit">Salvar</button>
+                <button (click)="closePopup()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormTypes } from '../../shared/models/formTypes';
 import { FormtypesService } from '../../services/form/formtypes.service';
 import { Tags } from '../../shared/models/tags';
+import { TagService } from '../../services/tag/tag-services.service';
 
 @Component({
   selector: 'app-tags',
@@ -12,8 +13,8 @@ import { Tags } from '../../shared/models/tags';
 })
 export class TagsComponent {
   Tags: Tags[] = [];
-  constructor(private fs: FormtypesService) {
-    fs.getAllTags().subscribe(resp => {
+  constructor(private tg: TagService) {
+    tg.getAllTags().subscribe(resp => {
       this.Tags = resp;
     });
   }
