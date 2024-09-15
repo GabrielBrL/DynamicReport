@@ -35,6 +35,10 @@ export class FormtypesService {
     return this.http.get<FormTypes[]>(`${this.baseAddress}/api/Form/all`).pipe(map(forms => forms.map(x => new FormTypes(x.id, x.name, x.tags))));
   }
 
+  createForm(form: FormTypes) {
+    return this.http.post(`${this.baseAddress}/api/Form/create`, form);
+  }
+
   removeForm(id: Number) {
     return this.http.delete(`${this.baseAddress}/api/Form/delete/${id}`);
   }

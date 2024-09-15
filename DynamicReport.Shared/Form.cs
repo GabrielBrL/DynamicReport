@@ -9,5 +9,5 @@ public class Form
     [Key]
     public int ID { get; set; }
     public string? Name { get; set; }
-    public string? Tag { get; set; }
+    public string? Tags { get; set; }
 }

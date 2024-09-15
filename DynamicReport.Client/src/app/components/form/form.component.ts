@@ -20,10 +20,13 @@ export class FormComponent {
   selectToAddOption: HTMLSelectElement | undefined;
   constructor(private fs: FormtypesService, private route: ActivatedRoute, private pdfUtil: PdfService) {
     route.params.subscribe(param => {
-      fs.getFormById(param["id"]).subscribe(resp => {
-        this.form = resp;
-      });
-      return this.form;
+      if (param["id"]) {
+        fs.getFormById(param["id"]).subscribe(resp => {
+          this.form = resp;
+        });
+        return this.form;
+      }
+      return null;
     })
   }
 

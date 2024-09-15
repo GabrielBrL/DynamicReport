@@ -30,7 +30,7 @@ public class FormService : IFormService
 
     public List<Form> GetFormByTag(string name)
     {
-        return GetAllForms().Where(x => x.Tag == name).ToList();
+        return GetAllForms().Where(x => x.Tags.Split(',').Contains(name)).ToList();
     }
 
     public async Task<Form> CreateForm(Form form)
@@ -46,7 +46,7 @@ public class FormService : IFormService
         if (formDb != null)
         {
             formDb.Name = form.Name;
-            formDb.Tag = form.Tag;
+            formDb.Tags = form.Tags;
             _context.Forms.Update(formDb);
             await _context.SaveChangesAsync();
         }
