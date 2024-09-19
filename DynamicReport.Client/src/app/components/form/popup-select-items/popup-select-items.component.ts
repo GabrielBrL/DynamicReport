@@ -11,7 +11,7 @@ import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angu
 })
 export class PopupSelectItemsComponent {
   @Input() classContent: string | undefined;
-  @Input() select: HTMLSelectElement | undefined;
+  @Input() element: HTMLElement | undefined;
   @Output() esconderFilho = new EventEmitter<void>();
 
   closePopup() {
@@ -36,12 +36,49 @@ export class PopupSelectItemsComponent {
   saveOptionSelect() {
     var inputs = document.getElementsByClassName("input-new-item");
     Array.from(inputs, (x) => {
-      var opt = document.createElement("option");
       if (x instanceof HTMLInputElement) {
-        opt.textContent = x.value;
-        this.select?.appendChild(opt);
+        switch (true) {
+          case this.element instanceof HTMLSelectElement:
+            var opt = document.createElement("option");
+            opt.textContent = x.value;
+            this.element?.appendChild(opt);
+            break;
+          case this.element instanceof HTMLDivElement && this.element.classList.contains("input-checkbox"):
+            var input = document.createElement("input");
+            input.type = "checkbox";
+            input.classList.add("input-checks");
+            var p = document.createElement("p");
+            p.textContent = x.value;
+            var divRadioValues = document.createElement("div");
+            divRadioValues.classList.add("input-radio-values");
+            divRadioValues.appendChild(p);
+            divRadioValues.appendChild(input);
+            this.element.appendChild(divRadioValues);
+            break;
+          case this.element instanceof HTMLDivElement && this.element.classList.contains("input-radio"):
+            let numRadio = this.countElementsFromMainList();
+            var input = document.createElement("input");
+            input.type = "radio";
+            input.classList.add("input-radio-unique");
+            input.name = `radio${numRadio}`;
+            var p = document.createElement("p");
+            p.textContent = x.value;
+            var divRadioValues = document.createElement("div");
+            divRadioValues.classList.add("input-radio-values");
+            divRadioValues.appendChild(p);
+            divRadioValues.appendChild(input);
+            this.element.appendChild(divRadioValues);
+            break;
+          default:
+            break;
+        }
       }
     });
     this.closePopup();
+  }
+  countElementsFromMainList(): number {
+    var listMain = document.getElementById("listComponents");
+    let count = listMain?.childNodes.length;
+    return !count ? 0 : Number(count) + 1;
   }
 }

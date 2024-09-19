@@ -53,24 +53,16 @@ export class PdfService {
               font: font,
               color: rgb(0, 0, 0),
             });
-          page.drawText(item.childNodes[0].childNodes[1].childNodes[0].textContent || "",
-            {
-              x: 25,
-              y: yPosition,
-              size: 12,
-              font: font,
-              color: rgb(0, 0, 0),
-            });
           var selectField = form.createDropdown(`field-select${index}`);
           var options: string[] = [];
-          item.childNodes[0].childNodes[1].childNodes[1].childNodes[0].childNodes.forEach(y => {
+          item.childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes.forEach(y => {
             console.log(y);
             if (y.textContent && y.nodeName != "BUTTON")
               options.push(y.textContent);
           });
           selectField.setOptions(options);
-          selectField.addToPage(page, { x: 25, y: yPosition - 30, width: 545, height: 20 });
-          startY -= 30;
+          selectField.addToPage(page, { x: 25, y: yPosition - 10, width: 545, height: 20 });
+          startY -= 10;
         }
 
         function createCheckBoxField() {
@@ -112,28 +104,24 @@ export class PdfService {
           // item.childNodes[0].childNodes[1].childNodes.forEach(p => {
           //   var label = p.childNodes[0].textContent;
           // });
-          var label1 = item.childNodes[0].childNodes[1].childNodes[0].childNodes[0].textContent;
-          var label2 = item.childNodes[0].childNodes[1].childNodes[1].childNodes[0].textContent;
-          page.drawText(label2 || "",
-            {
-              x: 25,
-              y: yPosition - 20,
-              size: 12,
-              font: font,
-              color: rgb(0, 0, 0),
-            });
-          page.drawText(label1 || "",
-            {
-              x: 25,
-              y: yPosition,
-              size: 12,
-              font: font,
-              color: rgb(0, 0, 0),
-            });
-          const radioField = form.createRadioGroup(`field-radio${index}`);
-          radioField.addOptionToPage("Opt1", page, { x: 25 + (7 * (label2?.length || 0)), y: yPosition - 23, width: 15, height: 15 });
-          radioField.addOptionToPage("Opt2", page, { x: 25 + (7 * (label1?.length || 0)), y: yPosition - 3, width: 15, height: 15 });
-          startY -= 25;
+          let qtdSpacing = 0;
+          var radioField = form.createRadioGroup(`field-radio${index}`);
+          for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
+            var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
+            if (label) {
+              page.drawText(label || "",
+                {
+                  x: 25,
+                  y: yPosition - (20 * i),
+                  size: 12,
+                  font: font,
+                  color: rgb(0, 0, 0),
+                });
+              qtdSpacing = (20 * i) + 5;
+              radioField.addOptionToPage(label, page, { x: 25 + (6.5 * (label.length || 0)), y: yPosition - (20 * i), width: 15, height: 15 });
+            }
+          }
+          startY -= qtdSpacing;
         }
 
         function createTextField() {

@@ -3,6 +3,7 @@ export class FormTypes {
         public id: Number = 0,
         public name: string = "",
         public tags: string = "",
+        public innerHtml: string = "",
     ) {
     }
 }

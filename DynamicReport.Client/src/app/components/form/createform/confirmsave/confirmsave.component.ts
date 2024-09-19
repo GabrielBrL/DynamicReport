@@ -30,6 +30,7 @@ export class ConfirmsaveComponent implements OnInit {
     this.formControl = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       tags: new FormControl('', [Validators.required]),
+      innerHtml: new FormControl('', [Validators.required]),
     });
     this.tg.getAllTags().subscribe(resp => this._tags = resp);
   }
@@ -39,11 +40,13 @@ export class ConfirmsaveComponent implements OnInit {
 
   }
   saveForm() {
-    if (this.formControl.valid) {
-      this.fs.createForm(this.formControl.value).subscribe(form => console.log(form), erro => {
-        console.log("Erro " + erro);
-      });
+    var html = document.getElementById("listComponents")?.innerHTML;
+    this.formControl.value.innerHtml = html;
+    this.fs.createForm(this.formControl.value).subscribe(form => {
+      console.log(form);
       this.route.navigate(['']);
-    }
+    }, erro => {
+      console.log("Erro " + erro);
+    });
   }
 }

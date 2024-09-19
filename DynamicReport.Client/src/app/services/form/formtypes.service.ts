@@ -14,7 +14,7 @@ export class FormtypesService {
   constructor(private http: HttpClient) { }
 
   getFormById(id: number): Observable<FormTypes> {
-    return this.http.get<FormTypes>(`${this.baseAddress}/api/Form/id/${id}`).pipe(map(form => new FormTypes(form.id, form.name, form.tags)));
+    return this.http.get<FormTypes>(`${this.baseAddress}/api/Form/id/${id}`).pipe(map(form => new FormTypes(form.id, form.name, form.tags, form.innerHtml)));
   }
 
   getFormByName(name: string): Observable<FormTypes[]> {

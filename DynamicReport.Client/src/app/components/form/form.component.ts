@@ -17,12 +17,16 @@ export class FormComponent {
   form: FormTypes | undefined;
   hiddenChooseComponents: boolean = false;
   classPopupSelecItems: string = "hide-content-popup-selecteditems";
-  selectToAddOption: HTMLSelectElement | undefined;
+  elementToAddOption: HTMLElement | undefined;
   constructor(private fs: FormtypesService, private route: ActivatedRoute, private pdfUtil: PdfService) {
     route.params.subscribe(param => {
       if (param["id"]) {
         fs.getFormById(param["id"]).subscribe(resp => {
           this.form = resp;
+          var mainHtml = document.getElementById("listComponents");
+          if (mainHtml) {
+            mainHtml.innerHTML = resp.innerHtml;
+          }
         });
         return this.form;
       }
@@ -70,34 +74,18 @@ export class FormComponent {
 
   appendComponentRadio() {
     let numRadio = this.countElementsFromMainList();
-    var input = document.createElement("input");
-    input.type = "radio";
-    input.classList.add("input-radio-unique");
-    input.name = `radio${numRadio}`;
-    var p = document.createElement("p");
-    p.textContent = "Texto";
-    var divRadioValues = document.createElement("div");
-    divRadioValues.classList.add("input-radio-values");
-    divRadioValues.appendChild(p);
-    divRadioValues.appendChild(input);
 
     var divInputRadio = document.createElement("div");
     divInputRadio.classList.add("input-radio");
 
-    divInputRadio.appendChild(divRadioValues);
-
-    input = document.createElement("input");
-    input.type = "radio";
-    input.name = `radio${numRadio}`;
-    input.classList.add("input-radio-unique");
-    p = document.createElement("p");
-    p.textContent = "Texto";
-    divRadioValues = document.createElement("div");
-    divRadioValues.classList.add("input-radio-values");
-    divRadioValues.appendChild(p);
-    divRadioValues.appendChild(input);
-
-    divInputRadio.appendChild(divRadioValues);
+    var buttonAddOptionSelect = document.createElement("button");
+    buttonAddOptionSelect.textContent = "Adicionar";
+    buttonAddOptionSelect.classList.add("button-add-select-option");
+    buttonAddOptionSelect.addEventListener("click", (e) => {
+      this.AddOptionOnSelect(divInputRadio);
+    });
+    buttonAddOptionSelect.style.top = "1rem";
+    buttonAddOptionSelect.style.position = "relative";
 
     var pTitle = document.createElement("p");
     pTitle.classList.add("input-title");
@@ -118,6 +106,7 @@ export class FormComponent {
 
     divContent.appendChild(divLabelInput);
     divContent.appendChild(divInputRadio);
+    divContent.appendChild(buttonAddOptionSelect);
     divMainContent.appendChild(divContent);
 
     var mainListComponents = document.getElementById("listComponents");
@@ -125,57 +114,17 @@ export class FormComponent {
   }
 
   appendComponentCheckBox() {
-    var input = document.createElement("input");
-    input.type = "checkbox";
-    input.classList.add("input-checks");
-    var p = document.createElement("p");
-    p.textContent = "Texto";
-    var divRadioValues = document.createElement("div");
-    divRadioValues.classList.add("input-radio-values");
-    divRadioValues.appendChild(p);
-    divRadioValues.appendChild(input);
-
     var divInputRadio = document.createElement("div");
-    divInputRadio.classList.add("input-radio");
+    divInputRadio.classList.add("input-checkbox");
 
-    divInputRadio.appendChild(divRadioValues);
-    //#region create checkboxes    
-    input = document.createElement("input");
-    input.type = "checkbox";
-    input.classList.add("input-checks");
-    p = document.createElement("p");
-    p.textContent = "Texto";
-    divRadioValues = document.createElement("div");
-    divRadioValues.classList.add("input-radio-values");
-    divRadioValues.appendChild(p);
-    divRadioValues.appendChild(input);
-
-    divInputRadio.appendChild(divRadioValues);
-
-    input = document.createElement("input");
-    input.type = "checkbox";
-    input.classList.add("input-checks");
-    p = document.createElement("p");
-    p.textContent = "Texto";
-    divRadioValues = document.createElement("div");
-    divRadioValues.classList.add("input-radio-values");
-    divRadioValues.appendChild(p);
-    divRadioValues.appendChild(input);
-
-    divInputRadio.appendChild(divRadioValues);
-
-    input = document.createElement("input");
-    input.type = "checkbox";
-    input.classList.add("input-checks");
-    p = document.createElement("p");
-    p.textContent = "Texto";
-    divRadioValues = document.createElement("div");
-    divRadioValues.classList.add("input-radio-values");
-    divRadioValues.appendChild(p);
-    divRadioValues.appendChild(input);
-
-    divInputRadio.appendChild(divRadioValues);
-    //#endregion
+    var buttonAddOptionSelect = document.createElement("button");
+    buttonAddOptionSelect.textContent = "Adicionar";
+    buttonAddOptionSelect.classList.add("button-add-select-option");
+    buttonAddOptionSelect.addEventListener("click", (e) => {
+      this.AddOptionOnSelect(divInputRadio);
+    });
+    buttonAddOptionSelect.style.top = "1rem";
+    buttonAddOptionSelect.style.position = "relative";
 
     var inputLabelEdit = this.EditLabels();
 
@@ -196,6 +145,8 @@ export class FormComponent {
 
     divContent.appendChild(divLabelInput);
     divContent.appendChild(divInputRadio);
+    divContent.appendChild(buttonAddOptionSelect);
+
     divMainContent.appendChild(divContent);
 
     var mainListComponents = document.getElementById("listComponents");
@@ -206,13 +157,8 @@ export class FormComponent {
     var select = document.createElement("select");
     select.style.width = "15rem";
 
-    var p = document.createElement("p");
-    p.textContent = "Opções";
-
     var divContent = document.createElement("div");
     divContent.classList.add("select");
-
-    divContent.appendChild(p);
 
     var divAddSelect = document.createElement("div");
     divAddSelect.classList.add("div-add-select-options");
@@ -318,9 +264,9 @@ export class FormComponent {
       this.style.display = "none";
     }
   }
-  AddOptionOnSelect(select: HTMLSelectElement = document.createElement("select")) {
+  AddOptionOnSelect(element: HTMLElement = document.createElement("a")) {
     this.classPopupSelecItems = this.classPopupSelecItems === "content-popup-selecteditems" ? "hide-content-popup-selecteditems" : "content-popup-selecteditems";
-    this.selectToAddOption = select;
+    this.elementToAddOption = element;
   }
 }
 
