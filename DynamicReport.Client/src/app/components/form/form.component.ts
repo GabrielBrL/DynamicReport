@@ -27,13 +27,13 @@ export class FormComponent {
           if (mainHtml) {
             mainHtml.innerHTML = resp.innerHtml;
           }
+          this.reAddEvents();
         });
         return this.form;
       }
       return null;
     })
   }
-
   showOptionsOfComponents() {
     if (this.hiddenChooseComponents) {
       document.getElementById("listButtonComponents")?.classList.add("hidden-list-options-fields");
@@ -43,7 +43,6 @@ export class FormComponent {
     document.getElementById("listButtonComponents")?.classList.remove("hidden-list-options-fields");
     this.hiddenChooseComponents = true;
   }
-
   appendComponentText() {
     var input = document.createElement("input");
     input.type = "text";
@@ -71,7 +70,6 @@ export class FormComponent {
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
   }
-
   appendComponentRadio() {
     let numRadio = this.countElementsFromMainList();
 
@@ -112,7 +110,6 @@ export class FormComponent {
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
   }
-
   appendComponentCheckBox() {
     var divInputRadio = document.createElement("div");
     divInputRadio.classList.add("input-checkbox");
@@ -152,7 +149,6 @@ export class FormComponent {
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
   }
-
   appendComponentSelect() {
     var select = document.createElement("select");
     select.style.width = "15rem";
@@ -200,13 +196,11 @@ export class FormComponent {
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
   }
-
   countElementsFromMainList(): number {
     var listMain = document.getElementById("listComponents");
     let count = listMain?.childNodes.length;
     return !count ? 0 : Number(count) + 1;
   }
-
   private EditLabels() {
     var inputLabelEdit = document.createElement("input");
     inputLabelEdit.type = "text";
@@ -231,7 +225,6 @@ export class FormComponent {
     );
     return inputLabelEdit;
   }
-
   async exportPdf() {
     const pdfBytes = await this.pdfUtil.createPdf(document.getElementById("listComponents"));
     const blob = new Blob([pdfBytes], { type: 'application/pdf' });
@@ -242,7 +235,6 @@ export class FormComponent {
     // Abre o PDF em uma nova aba do navegador
     window.open(url);
   }
-
   changeName(this: HTMLParagraphElement) {
     const divEdit = this.parentElement?.children;
     const idInput = divEdit?.item(1);
@@ -267,6 +259,35 @@ export class FormComponent {
   AddOptionOnSelect(element: HTMLElement = document.createElement("a")) {
     this.classPopupSelecItems = this.classPopupSelecItems === "content-popup-selecteditems" ? "hide-content-popup-selecteditems" : "content-popup-selecteditems";
     this.elementToAddOption = element;
+  }
+  reAddEvents() {
+    var btns = document.getElementsByClassName("button-add-select-option");
+    if (btns) {
+      for (let index = 0; index < btns.length; index++) {
+        const element = btns[index];
+        switch (element.parentElement?.children.length) {
+          case 2:
+            var select = element.parentElement?.children[0];
+            var button = element.parentElement?.children[1];            
+            button.addEventListener("click", (e) => {
+              if (select instanceof HTMLElement)
+                this.AddOptionOnSelect(select);
+            });
+            break
+          case 3:
+            var div = element.parentElement?.children[1];
+            var button = element.parentElement?.children[2];
+            console.log(div);
+            button.addEventListener("click", (e) => {
+              if (div instanceof HTMLElement)
+                this.AddOptionOnSelect(div);
+            });
+            break;
+          default:
+            break;
+        }
+      }
+    }
   }
 }
 
