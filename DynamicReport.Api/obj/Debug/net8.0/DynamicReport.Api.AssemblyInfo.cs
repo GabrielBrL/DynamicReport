@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DynamicReport.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3d7cf19ec510e6bb85312c1e5ed8ff0525f4d11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+595b47940f443e1a5332961e6c93515f8e38a142")]
 [assembly: System.Reflection.AssemblyProductAttribute("DynamicReport.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DynamicReport.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
