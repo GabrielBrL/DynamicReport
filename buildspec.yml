@@ -6,8 +6,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 954976304002.dkr.ecr.us-east-2.amazonaws.com
-      - COMMIT_HASH=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}'})
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 954976304002.dkr.ecr.us-east-2.amazonaws.com    
 
     build:
       commands:
