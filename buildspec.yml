@@ -1,0 +1,26 @@
+version 0.2
+
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 954976304002.dkr.ecr.us-east-2.amazonaws.com
+      - COMMIT_HASH=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}'})
+
+    build:
+      commands:
+        - echo Build started on `date`
+        - docker build -t dynamicreport .
+        - docker tag dynamicreport:latest 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest
+    
+    post_build:
+      commands:
+        - echo Build completed
+        - docker push 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest
+        - cat imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
