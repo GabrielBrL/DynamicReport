@@ -11,7 +11,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - docker build -t dynamicreport .
+      - docker build -t dynamicreport DynamicReport.Client/
       - docker tag dynamicreport:latest 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest
     
   post_build:
