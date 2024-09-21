@@ -17,9 +17,4 @@ phases:
   post_build:
     commands:
       - echo Build completed
-      - docker push 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest
-      - cat imagedefinitions.json
-
-artifacts:
-  files:
-    - imagedefinitions.json
+      - docker push 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest  
