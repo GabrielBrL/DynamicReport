@@ -9,14 +9,14 @@ phases:
       - docker logout 954976304002.dkr.ecr.us-east-2.amazonaws.com      
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 954976304002.dkr.ecr.us-east-2.amazonaws.com      
 
-    build:
-      commands:
+  build:
+    commands:
         - echo Build started on `date`
         - docker build -t dynamicreport .
         - docker tag dynamicreport:latest 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest
     
-    post_build:
-      commands:
+  post_build:
+    commands:
         - echo Build completed
         - docker push 954976304002.dkr.ecr.us-east-2.amazonaws.com/dynamicreport:latest
         - cat imagedefinitions.json
