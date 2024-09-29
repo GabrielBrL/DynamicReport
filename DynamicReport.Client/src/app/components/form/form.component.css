@@ -132,3 +132,24 @@ p {
     justify-content: space-between;
     gap: 2rem;
 }
+
+.button-save-component {
+    display: flex;
+    border: none;
+    border-radius: 1rem;
+    width: 5rem;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-save-component {
+    background-color: rgb(0, 110, 255);
+    color: white;
+    transition: 0.5s;
+}
+
+.button-save-component:hover {
+    background-color: rgb(0, 80, 185);
+    transition: 0.5s;
+}

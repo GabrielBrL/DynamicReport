@@ -47,6 +47,7 @@ public class FormService : IFormService
         {
             formDb.Name = form.Name;
             formDb.Tags = form.Tags;
+            formDb.InnerHtml = form.InnerHtml;
             _context.Forms.Update(formDb);
             await _context.SaveChangesAsync();
         }

@@ -25,7 +25,7 @@ export class FormtypesService {
     if (tag == 'All')
       return this.getAll();
     return this.http.get<FormTypes[]>(`${this.baseAddress}/api/Form/tag/${tag}`).pipe(map(forms => forms.map(x => new FormTypes(x.id, x.name, x.tags))));
-  }  
+  }
 
   getAll(): Observable<FormTypes[]> {
     return this.http.get<FormTypes[]>(`${this.baseAddress}/api/Form/all`).pipe(map(forms => forms.map(x => new FormTypes(x.id, x.name, x.tags))));
@@ -33,6 +33,10 @@ export class FormtypesService {
 
   createForm(form: FormTypes) {
     return this.http.post(`${this.baseAddress}/api/Form/create`, form);
+  }
+
+  updateForm(form: FormTypes) {
+    return this.http.patch(`${this.baseAddress}/api/Form/update`, form);
   }
 
   removeForm(id: Number) {
