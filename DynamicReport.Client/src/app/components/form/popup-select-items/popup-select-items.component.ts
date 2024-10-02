@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 
 
 @Component({
@@ -11,26 +11,38 @@ import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angu
 })
 export class PopupSelectItemsComponent {
   @Input() classContent: string | undefined;
-  @Input() element: HTMLElement | undefined;
+  @Input() element: HTMLElement | undefined | null;
   @Output() esconderFilho = new EventEmitter<void>();
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['classContent'].currentValue == 'content-popup-selecteditems') {
+      if (this.element)
+        this.addInput(this.element.children);
+    }
+  }
 
   closePopup() {
     this.esconderFilho.emit();
     var divItems = document.getElementById("add-input-items");
     if (divItems)
       divItems.innerHTML = '';
-    this.addInput();
   }
-  addInput() {
-    var divItems = document.getElementById("add-input-items");
-    var pTitle = document.createElement("p");
-    pTitle.textContent = "Item:";
-    var input = document.createElement("input");
-    input.classList.add("input-new-item");
-    input.type = "text";
+  
+  addInput(values: HTMLCollection | null = null) {
+    if (values) {
+      for (let i = 0; i < values.length; i++) {
+        var divItems = document.getElementById("add-input-items");
+        var pTitle = document.createElement("p");
+        pTitle.textContent = "Item:";
+        var input = document.createElement("input");
+        input.classList.add("input-new-item");
+        input.type = "text";
+        input.value = values[i].textContent || "";
 
-    divItems?.appendChild(pTitle);
-    divItems?.appendChild(input);
+        divItems?.appendChild(pTitle);
+        divItems?.appendChild(input);
+      }
+    }
   }
 
   saveOptionSelect() {

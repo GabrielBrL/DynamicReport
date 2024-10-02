@@ -18,7 +18,7 @@ export class FormComponent {
   form: FormTypes | undefined;
   hiddenChooseComponents: boolean = false;
   classPopupSelecItems: string = "hide-content-popup-selecteditems";
-  elementToAddOption: HTMLElement | undefined;
+  elementToAddOption: HTMLElement | undefined | null;
   classPopupSaveForm: string = "hide-content-popup-saveform";
   constructor(private fs: FormtypesService, private route: ActivatedRoute, private pdfUtil: PdfService) {
     route.params.subscribe(param => {
@@ -312,7 +312,7 @@ export class FormComponent {
       this.style.display = "none";
     }
   }
-  AddOptionOnSelect(element: HTMLElement = document.createElement("a")) {
+  AddOptionOnSelect(element: HTMLElement | null | undefined = null) {
     this.classPopupSelecItems = this.classPopupSelecItems === "content-popup-selecteditems" ? "hide-content-popup-selecteditems" : "content-popup-selecteditems";
     this.elementToAddOption = element;
   }
