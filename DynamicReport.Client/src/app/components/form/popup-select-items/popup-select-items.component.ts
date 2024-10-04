@@ -12,12 +12,15 @@ import { Component, EventEmitter, Input, Output, SimpleChanges, ViewEncapsulatio
 export class PopupSelectItemsComponent {
   @Input() classContent: string | undefined;
   @Input() element: HTMLElement | undefined | null;
-  @Output() esconderFilho = new EventEmitter<void>();
+  @Output() esconderFilho = new EventEmitter<void>();  
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['classContent'].currentValue == 'content-popup-selecteditems') {
-      if (this.element)
-        this.addInput(this.element.children);
+      if (this.element) {        
+        this.addInputAdded(this.element.children);
+      }
+      else
+        this.addInput()
     }
   }
 
@@ -27,26 +30,93 @@ export class PopupSelectItemsComponent {
     if (divItems)
       divItems.innerHTML = '';
   }
-  
-  addInput(values: HTMLCollection | null = null) {
-    if (values) {
-      for (let i = 0; i < values.length; i++) {
-        var divItems = document.getElementById("add-input-items");
-        var pTitle = document.createElement("p");
-        pTitle.textContent = "Item:";
-        var input = document.createElement("input");
-        input.classList.add("input-new-item");
-        input.type = "text";
-        input.value = values[i].textContent || "";
 
-        divItems?.appendChild(pTitle);
-        divItems?.appendChild(input);
+  addInputAdded(values: HTMLCollection | null = null) {
+    if (values) {
+      if (values.length == 0) {
+        this.addInput();
+        return;
       }
+      var divItems = document.getElementById("add-input-items");
+      if (divItems) {
+        divItems.innerHTML = '';
+        for (let i = 0; i < values.length; i++) {
+          var pTitle = document.createElement("p");
+          pTitle.textContent = "Item:";
+
+          var divEdit = document.createElement("div");
+          divEdit.classList.add("field-edit-new-values");
+
+          var input = document.createElement("input");
+          input.classList.add("input-new-item");
+          input.type = "text";
+          input.value = values[i].textContent || "";
+
+          var btnDelete = document.createElement("button");
+          btnDelete.textContent = "X";
+          btnDelete.addEventListener("click", (e) => {
+            this.removeFieldItem(values, i, divItems);
+          });
+
+          divEdit.appendChild(input);
+          divEdit.appendChild(btnDelete);
+
+          divItems?.appendChild(pTitle);
+          divItems?.appendChild(divEdit);
+        }
+        return;
+      }
+    }
+  }
+
+  private removeFieldItem(values: HTMLCollection, i: number, divItems: HTMLElement | null) {
+    if (divItems)
+      divItems.innerHTML = '';
+    if (values.length > 0) {
+      values[i].parentElement?.removeChild(values[i]);
+      this.addInputAdded(values)
+    }
+    else {
+      this.addInput();
+    }
+  }
+
+  addInput() {
+    var divItems = document.getElementById("add-input-items");
+    var pTitle = document.createElement("p");
+    pTitle.textContent = "Item:";
+
+    var divEdit = document.createElement("div");
+    divEdit.classList.add("field-edit-new-values");
+
+    var input = document.createElement("input");
+    input.classList.add("input-new-item");
+    input.type = "text";
+
+    var btnDelete = document.createElement("button");
+    btnDelete.textContent = "X";
+    btnDelete.addEventListener("click", (e) => {
+      if (this.element)
+        this.removeFieldItem(this.element.children, this.element.children.length - 1, divItems);
+    });
+
+    divEdit.appendChild(input);
+    divEdit.appendChild(btnDelete);
+
+    divItems?.appendChild(pTitle);
+    divItems?.appendChild(divEdit);
+
+    if (this.element){
+      var tmpElement = document.createElement("div");
+      tmpElement.style.display = 'none';
+      this.element.appendChild(tmpElement);
     }
   }
 
   saveOptionSelect() {
     var inputs = document.getElementsByClassName("input-new-item");
+    if (this.element)
+      this.element.innerHTML = '';
     Array.from(inputs, (x) => {
       if (x instanceof HTMLInputElement) {
         switch (true) {
