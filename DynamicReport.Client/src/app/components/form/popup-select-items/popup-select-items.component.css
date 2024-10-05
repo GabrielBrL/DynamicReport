@@ -35,6 +35,7 @@
 }
 
 .btn-actions {
+    padding: 0 1rem;
     display: flex;
     justify-content: space-between;
     position: relative;

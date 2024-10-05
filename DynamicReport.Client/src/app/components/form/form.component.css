@@ -4,8 +4,8 @@ p {
 
 .container-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     flex-direction: column;
     padding: 0;
     margin-bottom: 5rem;
@@ -13,11 +13,16 @@ p {
 }
 
 .title {
+    display: flex;
     margin: 2rem 0 2rem 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .content {
-    width: calc(100% - 500px);
+    padding: 0 5rem 0 5rem;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .field {
@@ -152,4 +157,10 @@ p {
 .button-save-component:hover {
     background-color: rgb(0, 80, 185);
     transition: 0.5s;
+}
+
+@media (max-width: 650px) {
+    .content {
+        padding: 0 1rem 0 1rem;
+    }
 }

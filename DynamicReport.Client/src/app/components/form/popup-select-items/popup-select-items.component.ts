@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
 
 
 @Component({
@@ -12,11 +13,11 @@ import { Component, EventEmitter, Input, Output, SimpleChanges, ViewEncapsulatio
 export class PopupSelectItemsComponent {
   @Input() classContent: string | undefined;
   @Input() element: HTMLElement | undefined | null;
-  @Output() esconderFilho = new EventEmitter<void>();  
+  @Output() esconderFilho = new EventEmitter<void>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['classContent'].currentValue == 'content-popup-selecteditems') {
-      if (this.element) {        
+      if (this.element) {
         this.addInputAdded(this.element.children);
       }
       else
@@ -58,13 +59,20 @@ export class PopupSelectItemsComponent {
             this.removeFieldItem(values, i, divItems);
           });
 
+          // var aDragDrop = document.createElement("a");
+          // aDragDrop.style.cursor = "n-resize";
+          // aDragDrop.textContent = "º";
+          // aDragDrop.addEventListener("dragstart", (e) => {
+
+          // });
+
+          // divEdit.appendChild(aDragDrop);
           divEdit.appendChild(input);
           divEdit.appendChild(btnDelete);
 
           divItems?.appendChild(pTitle);
           divItems?.appendChild(divEdit);
         }
-        return;
       }
     }
   }
@@ -106,7 +114,7 @@ export class PopupSelectItemsComponent {
     divItems?.appendChild(pTitle);
     divItems?.appendChild(divEdit);
 
-    if (this.element){
+    if (this.element) {
       var tmpElement = document.createElement("div");
       tmpElement.style.display = 'none';
       this.element.appendChild(tmpElement);
