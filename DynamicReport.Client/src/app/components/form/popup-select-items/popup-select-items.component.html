@@ -5,9 +5,17 @@
                 <h3>Adicionar item</h3>
             </div>
             <div class="input-items">
-                <div id="add-input-items">
-                    <!-- <p>Item:</p>
-                    <input type="text" class="input-new-item"> -->
+                <div cdkDropList id="add-input-items" (cdkDropListDropped)="drop($event)">
+                    @for (elemento of elementos; track elemento;let i = $index) {
+                    <div class="editable-items" cdkDrag>
+                        <div class="placeholder-items" *cdkDragPlaceholder></div>                        
+                        <div class="field-edit-new-values">
+                            <mat-icon fontIcon="reorder"></mat-icon>
+                            <input type="text" value={{elemento}} class="input-new-item">
+                            <button (click)="removeInput(i)">X</button>
+                        </div>
+                    </div>
+                    }
                 </div>
                 <div style="display: flex;margin: 1rem;justify-content: center;">
                     <button (click)="addInput()">+</button>

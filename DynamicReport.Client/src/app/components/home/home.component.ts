@@ -4,11 +4,12 @@ import { FormTypes } from '../../shared/models/formTypes';
 import { SearchComponent } from '../search/search.component';
 import { ActivatedRoute } from '@angular/router';
 import { TagsComponent } from '../tags/tags.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SearchComponent, TagsComponent],
+  imports: [SearchComponent, TagsComponent, MatIconModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -45,7 +46,7 @@ export class HomeComponent implements OnInit {
 
   removeForm(id: Number) {
     this.fs.removeForm(id).subscribe(
-      result => {        
+      result => {
         this.cData();
       },
       erro => {

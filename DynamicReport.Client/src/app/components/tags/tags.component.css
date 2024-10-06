@@ -10,7 +10,7 @@ div a {
     margin: .2rem .15rem;
     border-radius: 10rem;
     color: white;
-    font-weight: bold;
+    font-weight: 500;
     transition: .5s;
 }
 

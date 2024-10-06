@@ -66,27 +66,18 @@ ul li a:hover {
     margin-left: 14.5rem;
 }
 
-.btn-remove-form {
+.mat-icon-delete {
+    cursor: pointer;
     border: none;
     border-radius: 100%;
     height: 1.5rem;
     width: 1.5rem;
     background-color: red;
     transition: .5s;
+    color: white;
 }
 
-.btn-remove-form:hover {
+.mat-icon-delete:hover {
     background-color: rgb(177, 0, 0);
     transition: .5s;
-}
-
-.btn-remove-form b {
-    display: flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-left: -0.35rem;
-    margin-top: -2.1rem;
-    font-size: 2.5rem;
-    color: white;
 }

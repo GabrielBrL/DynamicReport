@@ -16,7 +16,7 @@
 .content-popup-selecteditems-child {
     background-color: white;
     width: 40rem;
-    height: 20rem;
+    max-height: 50rem;
     padding: .5rem;
     justify-content: space-around;
     display: flex;
@@ -35,7 +35,7 @@
 }
 
 .btn-actions {
-    padding: 0 1rem;
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -47,7 +47,7 @@
 
 .input-items {
     padding: 0 1rem 0 1rem;
-    max-height: 12rem;
+    max-height: 40rem;
     overflow-y: auto;
 }
 
@@ -57,13 +57,20 @@
     gap: 2rem;
 }
 
+.field-edit-new-values :first-child{
+    display: flex;
+    align-self: center;
+}
+
 .field-edit-new-values button {
     color: white !important;
     background-color: #f15959;
+    transition: .5s;
 }
 
 .field-edit-new-values button:hover {
     background-color: #bd4747 !important;
+    transition: .5s;
 }
 
 .content-popup-selecteditems-child button {
@@ -72,12 +79,50 @@
     color: black;
     font-weight: 500;
     padding: 0 1rem;
-    transition: .5s;
+
 }
 
 .content-popup-selecteditems-child button:hover {
     background-color: rgb(0, 80, 185);
     color: white;
     cursor: pointer;
-    transition: .5s;
+
+}
+
+.cdk-drag-preview {
+    border: none;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    overflow-y: hidden;    
+}
+
+.cdk-drag-preview button{
+    visibility: hidden;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+}
+
+.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.editable-items{
+    padding: .5rem;
+    background: white;
+}
+
+#add-input-items.cdk-drop-list-dragging .editable-items:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.placeholder-items {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

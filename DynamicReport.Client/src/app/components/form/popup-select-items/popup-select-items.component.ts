@@ -1,124 +1,49 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop'
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-popup-select-items',
   standalone: true,
-  imports: [],
+  imports: [CdkDropList, CdkDrag, MatIconModule],
   templateUrl: './popup-select-items.component.html',
   styleUrl: './popup-select-items.component.css',
   encapsulation: ViewEncapsulation.None
 })
+
 export class PopupSelectItemsComponent {
   @Input() classContent: string | undefined;
   @Input() element: HTMLElement | undefined | null;
   @Output() esconderFilho = new EventEmitter<void>();
 
+  elementos: string[] = [];
+
+
   ngOnChanges(changes: SimpleChanges) {
+    this.elementos = [];
     if (changes['classContent'].currentValue == 'content-popup-selecteditems') {
       if (this.element) {
-        this.addInputAdded(this.element.children);
-      }
-      else
-        this.addInput()
-    }
-  }
-
-  closePopup() {
-    this.esconderFilho.emit();
-    var divItems = document.getElementById("add-input-items");
-    if (divItems)
-      divItems.innerHTML = '';
-  }
-
-  addInputAdded(values: HTMLCollection | null = null) {
-    if (values) {
-      if (values.length == 0) {
-        this.addInput();
-        return;
-      }
-      var divItems = document.getElementById("add-input-items");
-      if (divItems) {
-        divItems.innerHTML = '';
-        for (let i = 0; i < values.length; i++) {
-          var pTitle = document.createElement("p");
-          pTitle.textContent = "Item:";
-
-          var divEdit = document.createElement("div");
-          divEdit.classList.add("field-edit-new-values");
-
-          var input = document.createElement("input");
-          input.classList.add("input-new-item");
-          input.type = "text";
-          input.value = values[i].textContent || "";
-
-          var btnDelete = document.createElement("button");
-          btnDelete.textContent = "X";
-          btnDelete.addEventListener("click", (e) => {
-            this.removeFieldItem(values, i, divItems);
-          });
-
-          // var aDragDrop = document.createElement("a");
-          // aDragDrop.style.cursor = "n-resize";
-          // aDragDrop.textContent = "º";
-          // aDragDrop.addEventListener("dragstart", (e) => {
-
-          // });
-
-          // divEdit.appendChild(aDragDrop);
-          divEdit.appendChild(input);
-          divEdit.appendChild(btnDelete);
-
-          divItems?.appendChild(pTitle);
-          divItems?.appendChild(divEdit);
+        if (this.element.children.length == 0) {
+          this.elementos.push("");
+          return;
+        }
+        for (let i = 0; i < this.element.children.length; i++) {
+          this.elementos.push(String(this.element.children[i].textContent));
         }
       }
     }
   }
 
-  private removeFieldItem(values: HTMLCollection, i: number, divItems: HTMLElement | null) {
-    if (divItems)
-      divItems.innerHTML = '';
-    if (values.length > 0) {
-      values[i].parentElement?.removeChild(values[i]);
-      this.addInputAdded(values)
-    }
-    else {
-      this.addInput();
-    }
+  closePopup() {
+    this.esconderFilho.emit();
   }
 
   addInput() {
-    var divItems = document.getElementById("add-input-items");
-    var pTitle = document.createElement("p");
-    pTitle.textContent = "Item:";
-
-    var divEdit = document.createElement("div");
-    divEdit.classList.add("field-edit-new-values");
-
-    var input = document.createElement("input");
-    input.classList.add("input-new-item");
-    input.type = "text";
-
-    var btnDelete = document.createElement("button");
-    btnDelete.textContent = "X";
-    btnDelete.addEventListener("click", (e) => {
-      if (this.element)
-        this.removeFieldItem(this.element.children, this.element.children.length - 1, divItems);
-    });
-
-    divEdit.appendChild(input);
-    divEdit.appendChild(btnDelete);
-
-    divItems?.appendChild(pTitle);
-    divItems?.appendChild(divEdit);
-
-    if (this.element) {
-      var tmpElement = document.createElement("div");
-      tmpElement.style.display = 'none';
-      this.element.appendChild(tmpElement);
-    }
+    this.elementos.push("");
+  }
+  removeInput(index: number) {
+    this.elementos.splice(index);
   }
 
   saveOptionSelect() {
@@ -146,7 +71,7 @@ export class PopupSelectItemsComponent {
             this.element.appendChild(divRadioValues);
             break;
           case this.element instanceof HTMLDivElement && this.element.classList.contains("input-radio"):
-            let numRadio = this.countElementsFromMainList();
+            let numRadio = this.countElementsFromMainList(document.getElementById("listComponents"));
             var input = document.createElement("input");
             input.type = "radio";
             input.classList.add("input-radio-unique");
@@ -166,9 +91,13 @@ export class PopupSelectItemsComponent {
     });
     this.closePopup();
   }
-  countElementsFromMainList(): number {
-    var listMain = document.getElementById("listComponents");
-    let count = listMain?.childNodes.length;
+
+  countElementsFromMainList(list: HTMLElement | null): number {
+    let count = list?.childNodes.length;
     return !count ? 0 : Number(count) + 1;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.elementos, event.previousIndex, event.currentIndex);
   }
 }
