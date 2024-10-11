@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BlendMode, drawText, PDFDocument, PDFHexString, rgb } from 'pdf-lib';
+import { BlendMode, drawText, PDFDocument, PDFFont, PDFHexString, PDFPage, rgb } from 'pdf-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,8 @@ export class PdfService {
 
 
     if (html) {
-      const page = pdfDoc.addPage();
-      const form = pdfDoc.getForm();
+      var page = pdfDoc.addPage();
+      var form = pdfDoc.getForm();
       page.scale(1, 1);
       page.setWidth(600);
       const font = await pdfDoc.embedFont("Helvetica");
@@ -31,9 +31,26 @@ export class PdfService {
       let startY = 730;
       const fieldSpacing = 40;
 
+      var elementos = Array.from(html.children);
+
       // Adiciona texto à página
-      Array.from(html.children).forEach((item, index) => {
-        const yPosition = startY - (fieldSpacing * index);
+      createForm(elementos, startY, fieldSpacing, font);
+    }
+    const pdfBytes = await pdfDoc.save();
+
+    return pdfBytes;
+
+    function createForm(elementos: Element[], startY: number, fieldSpacing: number, font: PDFFont) {
+      elementos.forEach((item, index) => {
+        var yPosition = startY - (fieldSpacing * index);
+        if (yPosition < 50) {
+          page = addNewPage();
+          startY = 730;
+          elementos = elementos.splice(index);
+          createForm(elementos, startY, fieldSpacing, font);
+          return;
+        }
+
         if (item.id.includes("text")) {
           createTextField();
         }
@@ -47,6 +64,22 @@ export class PdfService {
           createSelectField();
         }
 
+        function addNewPage(): PDFPage {
+          var page = pdfDoc.addPage();
+          page.scale(1, 1);
+          page.setWidth(600);
+
+          // Adicionar um título
+          page.drawText(title, {
+            x: 25,
+            y: 800,
+            size: 18,
+            font: font,
+            color: rgb(0, 0, 0),
+          });
+          return page;
+        }
+
         function createSelectField() {
           page.drawText(item.childNodes[0].childNodes[0].textContent || "",
             {
@@ -56,7 +89,7 @@ export class PdfService {
               font: font,
               color: rgb(0, 0, 0),
             });
-          var selectField = form.createDropdown(`field-select${index}`);
+          var selectField = form.createDropdown(randstr(`field-select`));
           var options: string[] = [];
           item.childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes.forEach(y => {
             if (y.textContent && y.nodeName != "BUTTON")
@@ -95,7 +128,7 @@ export class PdfService {
                   font: font,
                   color: rgb(0, 0, 0),
                 });
-              var checkField = form.createCheckBox(`field-check-box${index}${i}`);
+              var checkField = form.createCheckBox(randstr(`field-check-box`));
               qtdSpacing = (20 * i) + 5;
               checkField.addToPage(page, { x: maxX, y: yPosition - (20 * i), width: 15, height: 15 });
             }
@@ -116,7 +149,7 @@ export class PdfService {
           //   var label = p.childNodes[0].textContent;
           // });
           let qtdSpacing = 0;
-          var radioField = form.createRadioGroup(`field-radio${index}`);
+          var radioField = form.createRadioGroup(randstr(`field-radio`));
           let maxX = 0;
           for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
             var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
@@ -153,14 +186,14 @@ export class PdfService {
               font: font,
               color: rgb(0, 0, 0),
             });
-          const textField = form.createTextField(`field-text${index}`);
+          const textField = form.createTextField(randstr(`field-text`));
           textField.addToPage(page, { x: 25, y: yPosition, width: 550, height: 20 });
         }
       });
     }
-    const pdfBytes = await pdfDoc.save();
-
-    return pdfBytes;
+    function randstr(prefix: string) {
+      return Math.random().toString(36).replace('0.', prefix || '');
+    }
   }
 
 }

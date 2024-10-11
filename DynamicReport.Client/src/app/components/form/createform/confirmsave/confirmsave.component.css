@@ -1,8 +1,8 @@
 .content-popup-saveform {
     display: flex;
-    position: absolute;
+    position: fixed;
     width: 100%;
-    height: calc(100% - 64px);
+    height: 100%;    
     align-items: center;
     justify-content: center;
     background-color: rgba(211, 211, 211, 0.8);

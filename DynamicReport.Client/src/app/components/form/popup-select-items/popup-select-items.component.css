@@ -1,14 +1,3 @@
-.content-popup-selecteditems {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: calc(100% - 64px);
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(211, 211, 211, 0.8);
-    z-index: 1000;
-}
-
 .hide-content-popup-selecteditems {
     display: none;
 }
