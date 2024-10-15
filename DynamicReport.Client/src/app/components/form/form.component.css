@@ -1,5 +1,5 @@
 p {
-    margin: 0;
+    margin: 0;    
 }
 
 .container-form {
@@ -10,6 +10,23 @@ p {
     padding: 0;
     margin-bottom: 5rem;
     width: 100%;
+    position: relative;
+    top: 4rem;
+}
+
+#popupEditElement {
+    position: absolute;
+    display: none;
+    background-color: transparent;
+    z-index: 1000;
+}
+
+#popupEditElement ul {
+    list-style-type: none;
+}
+
+.delete-button {
+    background-color: red;
 }
 
 .content-popup-selecteditems {
@@ -25,7 +42,7 @@ p {
 
 .title {
     display: flex;
-    margin: 2rem 0 2rem 0;
+    margin: 1rem 0;
     align-items: center;
     justify-content: center;
 }
@@ -40,9 +57,16 @@ p {
     padding: .5rem 0 .5rem 0;
 }
 
+.field p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: calc(100% - 20px);
+}
+
 .input-title {
     margin: .5rem 0 .5rem 0;
-    font-weight: bold;
+    font-weight: bold;    
+    text-align: justify;
 }
 
 .input-label {
@@ -172,6 +196,6 @@ p {
 
 @media (max-width: 650px) {
     .content {
-        padding: 0 1rem 1rem 1rem;
+        padding: 0 1rem 10rem 1rem;
     }
 }

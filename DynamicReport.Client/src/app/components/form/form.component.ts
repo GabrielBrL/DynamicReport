@@ -33,6 +33,15 @@ export class FormComponent {
     });
   }
   ngOnInit() {
+    document.oncontextmenu = (e) => {
+      return false;
+    };
+    var divPopup = document.getElementById("popupEditElement");
+    document.addEventListener("click", (e) => {
+      if (divPopup) {
+        divPopup.style.display = "none";
+      }
+    })
     this.route.params.subscribe(param => {
       if (param["id"])
         this.addButtonToUpdate();
@@ -73,6 +82,10 @@ export class FormComponent {
     divContent.appendChild(divLabelInput);
     divContent.appendChild(input);
     divMainContent.appendChild(divContent);
+
+    divMainContent.addEventListener("auxclick", (e) => {
+      this.deleteField(e, divMainContent);
+    });
 
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
@@ -132,6 +145,10 @@ export class FormComponent {
     divContent.appendChild(buttonAddOptionSelect);
     divMainContent.appendChild(divContent);
 
+    divMainContent.addEventListener("auxclick", (e) => {
+      this.deleteField(e, divMainContent);
+    });
+
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
   }
@@ -187,6 +204,10 @@ export class FormComponent {
     divContent.appendChild(buttonAddOptionSelect);
 
     divMainContent.appendChild(divContent);
+
+    divMainContent.addEventListener("auxclick", (e) => {
+      this.deleteField(e, divMainContent);
+    });
 
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
@@ -249,8 +270,26 @@ export class FormComponent {
     divMainContent.id = `line-select${this.countElementsFromMainList()}`;
     divMainContent.appendChild(divField);
 
+    divMainContent.addEventListener("auxclick", (e) => {
+      this.deleteField(e, divMainContent);
+    });
+
     var mainListComponents = document.getElementById("listComponents");
     mainListComponents?.appendChild(divMainContent);
+  }
+  private deleteField(e: MouseEvent, divMainContent: HTMLDivElement) {
+    var divPopup = document.getElementById("popupEditElement");
+    if (divPopup) {
+      divPopup.style.top = (e.clientY + window.scrollY) + 'px';
+      divPopup.style.left = (e.clientX + window.scrollX) + 'px';
+      divPopup.style.display = "block";
+
+      var button = divPopup.getElementsByTagName("button")[0];
+      button.onclick = () => {
+        console.log("clicou");
+        divMainContent.remove();
+      };
+    }
   }
   countElementsFromMainList(): number {
     var listMain = document.getElementById("listComponents");

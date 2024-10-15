@@ -108,7 +108,10 @@ export class PdfService {
               size: 12,
               font: font,
               color: rgb(0, 0, 0),
-            });
+              maxWidth: 545,
+              lineHeight:15,
+              wordBreaks: [" "]     
+            });            
           let qtdSpacing = 0;
           let maxX = 0;
           for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
