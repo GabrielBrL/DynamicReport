@@ -60,7 +60,7 @@ p {
 .field p {
     word-wrap: break-word;
     overflow-wrap: break-word;
-    width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
 }
 
 .input-title {

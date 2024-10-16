@@ -30,24 +30,25 @@ export class PdfService {
 
       let startY = 730;
       const fieldSpacing = 40;
+      const linesHeight = 15;
 
       var elementos = Array.from(html.children);
 
       // Adiciona texto à página
-      createForm(elementos, startY, fieldSpacing, font);
+      createForm(elementos, startY, fieldSpacing, linesHeight, font);
     }
     const pdfBytes = await pdfDoc.save();
 
     return pdfBytes;
 
-    function createForm(elementos: Element[], startY: number, fieldSpacing: number, font: PDFFont) {
+    function createForm(elementos: Element[], startY: number, fieldSpacing: number, linesHeight: number, font: PDFFont) {
       elementos.forEach((item, index) => {
         var yPosition = startY - (fieldSpacing * index);
         if (yPosition < 50) {
           page = addNewPage();
           startY = 730;
           elementos = elementos.splice(index);
-          createForm(elementos, startY, fieldSpacing, font);
+          createForm(elementos, startY, fieldSpacing, linesHeight, font);
           return;
         }
 
@@ -101,42 +102,48 @@ export class PdfService {
         }
 
         function createCheckBoxField() {
-          page.drawText(item.childNodes[0].childNodes[0].textContent || "",
+          var title = item.childNodes[0].childNodes[0].textContent || "";
+          page.drawText(title,
             {
               x: 25,
               y: yPosition + 20,
               size: 12,
               font: font,
               color: rgb(0, 0, 0),
-              maxWidth: 545,
-              lineHeight:15,
-              wordBreaks: [" "]     
-            });            
-          let qtdSpacing = 0;
-          let maxX = 0;
+              maxWidth: 550,
+              lineHeight: linesHeight,
+              wordBreaks: [" "]
+            });          
+          //let maxX = 0;
+          let lines = linesFromText(title, font, 12) * 15;
+          yPosition -= (lines - 10);
+          // for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
+          //   var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
+          //   if (label) {
+          //     maxX = maxX > 30 + font.widthOfTextAtSize(label, 12) ? maxX : 30 + font.widthOfTextAtSize(label, 12);
+          //   }
+          // }
           for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
             var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
             if (label) {
-              maxX = maxX > 30 + font.widthOfTextAtSize(label, 12) ? maxX : 30 + font.widthOfTextAtSize(label, 12);
-            }
-          }
-          for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
-            var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
-            if (label) {
-              page.drawText(label || "",
+              let linesValue = linesFromText(label, font, 12) * 15;              
+              page.drawText(label,
                 {
                   x: 25,
                   y: yPosition - (20 * i),
                   size: 12,
                   font: font,
                   color: rgb(0, 0, 0),
+                  maxWidth: 510,
+                  lineHeight: linesHeight,
+                  wordBreaks: [" "]
                 });
-              var checkField = form.createCheckBox(randstr(`field-check-box`));
-              qtdSpacing = (20 * i) + 5;
-              checkField.addToPage(page, { x: maxX, y: yPosition - (20 * i), width: 15, height: 15 });
+              var checkField = form.createCheckBox(randstr(`field-check-box`));              
+              yPosition -= (linesValue - 10);
+              checkField.addToPage(page, { x: 550, y: yPosition - (20 * i), width: 15, height: 15 });
             }
           }
-          startY -= qtdSpacing;
+          startY = yPosition - 50;
         }
 
         function createRadioField() {
@@ -196,6 +203,19 @@ export class PdfService {
     }
     function randstr(prefix: string) {
       return Math.random().toString(36).replace('0.', prefix || '');
+    }
+    function linesFromText(text: string, font: PDFFont, fontSize: number): number {
+      var textComplete = '';
+      let countLines = 1;
+      for (let index = 0; index < text.length; index++) {
+        textComplete += text[index];
+        var width = font.widthOfTextAtSize(textComplete, fontSize);
+        if (width > 550) {
+          countLines++;
+          textComplete = '';
+        }
+      }
+      return countLines;
     }
   }
 
