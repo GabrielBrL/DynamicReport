@@ -101,7 +101,7 @@ export class PdfService {
                 wordBreaks: [" "]
               });
           }
-          yPosition -= lines;
+          yPosition -= (lines - 5);
           var selectField = form.createDropdown(randstr(`field-select`));
           var options: string[] = [];
           item.childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes.forEach(y => {
@@ -109,8 +109,8 @@ export class PdfService {
               options.push(y.textContent);
           });
           selectField.setOptions(options);
-          selectField.addToPage(page, { x: 25, y: yPosition + 5, width: 550, height: 20 });
-          startY = yPosition + 75;
+          selectField.addToPage(page, { x: 25, y: yPosition, width: 550, height: 20 });
+          startY = yPosition;
         }
 
         function createCheckBoxField() {
@@ -127,7 +127,7 @@ export class PdfService {
               wordBreaks: [" "]
             });
           let lines = linesFromText(title, font, 12) * 15;
-          yPosition -= (lines - 15);
+          yPosition -= (lines - 35);
           for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
             var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
             if (label) {
@@ -135,7 +135,7 @@ export class PdfService {
               page.drawText(label,
                 {
                   x: 25,
-                  y: yPosition - (20 * i),
+                  y: yPosition - 5,
                   size: 12,
                   font: font,
                   color: rgb(0, 0, 0),
@@ -144,11 +144,11 @@ export class PdfService {
                   wordBreaks: [" "]
                 });
               var checkField = form.createCheckBox(randstr(`field-check-box`));
-              yPosition -= (linesValue - 10);
-              checkField.addToPage(page, { x: 550, y: yPosition - (20 * i), width: 15, height: 15 });
+              yPosition -= (linesValue + 10);
+              checkField.addToPage(page, { x: 550, y: yPosition + 20, width: 15, height: 15 });
             }
           }
-          startY = yPosition - 50;
+          startY = yPosition + 85;
         }
 
         function createRadioField() {
@@ -168,10 +168,8 @@ export class PdfService {
                 wordBreaks: [" "]
               });
           }
-          yPosition -= (lines - 15);
-          let qtdSpacing = 0;
+          yPosition -= (lines - 20);
           var radioField = form.createRadioGroup(randstr(`field-radio`));
-
           for (let i = 0; i < item.childNodes[0].childNodes[1].childNodes.length; i++) {
             var label = item.childNodes[0].childNodes[1].childNodes[i].childNodes[0].textContent;
             if (label) {
@@ -179,7 +177,7 @@ export class PdfService {
               page.drawText(label,
                 {
                   x: 25,
-                  y: yPosition - (20 * i),
+                  y: yPosition - 5,
                   size: 12,
                   font: font,
                   color: rgb(0, 0, 0),
@@ -187,12 +185,11 @@ export class PdfService {
                   lineHeight: linesHeight,
                   wordBreaks: [" "]
                 });
-              yPosition -= (linesValue - 10);
-              qtdSpacing = (20 * i) + 5;
-              radioField.addOptionToPage(label, page, { x: 550, y: yPosition - (20 * i), width: 15, height: 15, textColor: rgb(0, 0, 0) });
+              yPosition -= (linesValue + 10);
+              radioField.addOptionToPage(label, page, { x: 550, y: yPosition + 20, width: 15, height: 15, textColor: rgb(0, 0, 0) });
             }
           }
-          startY = yPosition - 50;
+          startY = yPosition + 50;
         }
 
         function createTextField() {
@@ -203,7 +200,7 @@ export class PdfService {
             page.drawText(title,
               {
                 x: 25,
-                y: yPosition + 25,
+                y: yPosition + 20,
                 size: 12,
                 font: font,
                 color: rgb(0, 0, 0),
@@ -212,9 +209,9 @@ export class PdfService {
                 wordBreaks: [" "]
               });
           }
-          yPosition -= lines;
+          yPosition -= (lines - 5);
           const textField = form.createTextField(randstr(`field-text`));
-          textField.addToPage(page, { x: 25, y: yPosition + 10, width: 550, height: 20 });
+          textField.addToPage(page, { x: 25, y: yPosition, width: 550, height: 20 });
           startY = yPosition;
         }
       });
@@ -233,7 +230,7 @@ export class PdfService {
           textComplete = '';
         }
       }
-      return countLines;
+      return countLines + 1;
     }
   }
 
